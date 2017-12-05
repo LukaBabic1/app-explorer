@@ -9,7 +9,6 @@ import hr.com.babic.appexplorer.injection.activity.module.ActivityPresenterModul
 import hr.com.babic.appexplorer.injection.application.ApplicationComponent;
 import hr.com.babic.appexplorer.injection.application.ApplicationModule;
 import hr.com.babic.appexplorer.injection.application.DaggerApplicationComponent;
-import hr.com.babic.appexplorer.injection.application.module.UseCaseModule;
 import hr.com.babic.appexplorer.injection.fragment.DaggerFragment;
 import hr.com.babic.appexplorer.injection.fragment.DaggerFragmentComponent;
 import hr.com.babic.appexplorer.injection.fragment.FragmentComponent;
@@ -28,7 +27,6 @@ public final class ComponentFactory {
                                       .applicationComponent(application.getApplicationComponent())
                                       .activityModule(new ActivityModule(activity))
                                       .activityPresenterModule(new ActivityPresenterModule(activity))
-                                      .useCaseModule(new UseCaseModule())
                                       .build();
     }
 

@@ -4,9 +4,9 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ServiceInfo;
+import android.content.res.Resources;
 
 import com.annimon.stream.Stream;
-import com.hr.babic.domain.model.ServiceInformation;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,9 +17,11 @@ public final class PackageManagerWrapper implements PackageInformationProvider {
     private static final int ZERO_COUNT = 0;
 
     private final PackageManager packageManager;
+    private final Resources resources;
 
-    public PackageManagerWrapper(final PackageManager packageManager) {
+    public PackageManagerWrapper(final PackageManager packageManager, final Resources resources) {
         this.packageManager = packageManager;
+        this.resources = resources;
     }
 
     @Override
@@ -30,7 +32,11 @@ public final class PackageManagerWrapper implements PackageInformationProvider {
     }
 
     private PackageData toPackageInformation(final PackageInfo info) {
-        return new PackageData(info.packageName, info.applicationInfo.name, info.versionCode, info.versionName);
+        return new PackageData(info.packageName.trim(), getAppLabel(info), info.versionCode, info.versionName);
+    }
+
+    private String getAppLabel(final PackageInfo packageInfo) {
+        return packageManager.getApplicationLabel(packageInfo.applicationInfo).toString().trim();
     }
 
     @Override
@@ -55,7 +61,7 @@ public final class PackageManagerWrapper implements PackageInformationProvider {
     }
 
     private ActivityData toActivityData(final ActivityInfo activityInfo) {
-        return new ActivityData(activityInfo.name);
+        return new ActivityData(activityInfo.name.trim());
     }
 
     @Override
@@ -80,7 +86,7 @@ public final class PackageManagerWrapper implements PackageInformationProvider {
     }
 
     private ServiceData toServiceData(final ServiceInfo serviceInfo) {
-        return new ServiceData(serviceInfo.name);
+        return new ServiceData(serviceInfo.name.trim());
     }
 
     private PackageInfo getPackageInfoForPackage(final String packageId, final int flags) {

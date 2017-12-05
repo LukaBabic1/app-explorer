@@ -1,7 +1,11 @@
 package hr.com.babic.appexplorer.injection.fragment.module;
 
 import dagger.Module;
+import dagger.Provides;
 import hr.com.babic.appexplorer.injection.fragment.DaggerFragment;
+import hr.com.babic.appexplorer.injection.scope.FragmentScope;
+import hr.com.babic.appexplorer.ui.overview.InstalledAppsOverviewContract;
+import hr.com.babic.appexplorer.ui.overview.InstalledAppsOverviewPresenter;
 
 @Module
 public final class FragmentPresenterModule {
@@ -12,7 +16,17 @@ public final class FragmentPresenterModule {
         this.fragment = fragment;
     }
 
+    @Provides
+    @FragmentScope
+    InstalledAppsOverviewContract.Presenter provideInstalledAppsOverviewPresenter() {
+        final InstalledAppsOverviewPresenter presenter = new InstalledAppsOverviewPresenter((InstalledAppsOverviewContract.View) fragment);
+        fragment.getFragmentComponent().inject(presenter);
+
+        return presenter;
+    }
+
     public interface Exposes {
 
+        InstalledAppsOverviewContract.Presenter presenter();
     }
 }

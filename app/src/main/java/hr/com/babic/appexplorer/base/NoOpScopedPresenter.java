@@ -1,40 +1,8 @@
 package hr.com.babic.appexplorer.base;
 
-final class NoOpScopedPresenter implements ScopedPresenter {
+public final class NoOpScopedPresenter extends BasePresenter {
 
-    static ScopedPresenter INSTANCE = new NoOpScopedPresenter();
-
-    private NoOpScopedPresenter() {
-
-    }
-
-    @Override
-    public void start() {
-
-    }
-
-    @Override
-    public void activate() {
-
-    }
-
-    @Override
-    public void deactivate() {
-
-    }
-
-    @Override
-    public void stop() {
-
-    }
-
-    @Override
-    public void destroy() {
-
-    }
-
-    @Override
-    public void back() {
-
+    public NoOpScopedPresenter() {
+        super(new BaseView() { });
     }
 }

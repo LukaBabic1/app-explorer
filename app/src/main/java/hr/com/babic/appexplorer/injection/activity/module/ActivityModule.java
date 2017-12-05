@@ -2,14 +2,17 @@ package hr.com.babic.appexplorer.injection.activity.module;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
+import android.view.LayoutInflater;
 
 import dagger.Module;
 import dagger.Provides;
+import hr.com.babic.appexplorer.base.NoOpScopedPresenter;
 import hr.com.babic.appexplorer.injection.ForActivity;
 import hr.com.babic.appexplorer.injection.activity.DaggerActivity;
 import hr.com.babic.appexplorer.injection.scope.ActivityScope;
 import hr.com.babic.appexplorer.ui.Router;
 import hr.com.babic.appexplorer.ui.RouterImpl;
+import hr.com.babic.appexplorer.ui.overview.InstalledAppsAdapter;
 import hr.com.babic.appexplorer.util.ActivityUtils;
 import hr.com.babic.appexplorer.util.ActivityUtilsImpl;
 
@@ -46,6 +49,25 @@ public final class ActivityModule {
         return new RouterImpl(activity, fragmentManager);
     }
 
+    @Provides
+    @ActivityScope
+    LayoutInflater provideLayoutInflater(@ForActivity final Context context) {
+        return LayoutInflater.from(context);
+    }
+
+    @Provides
+    InstalledAppsAdapter provideInstalledAppsAdapter(final LayoutInflater inflater) {
+        return new InstalledAppsAdapter(inflater);
+    }
+
+    @Provides
+    NoOpScopedPresenter provideNoOpScopedPresenter() {
+        final NoOpScopedPresenter presenter = new NoOpScopedPresenter();
+        activity.getActivityComponent().inject(presenter);
+
+        return presenter;
+    }
+
     public interface Exposes {
 
         ActivityUtils activityUtils();
@@ -54,5 +76,7 @@ public final class ActivityModule {
         Context provideActivityContext();
 
         Router router();
+
+        InstalledAppsAdapter installedAppsAdapter();
     }
 }
