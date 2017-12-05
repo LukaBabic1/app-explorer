@@ -47,6 +47,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
+    compile project(":domain")
+
     compile 'com.android.support:appcompat-v7:' + project.ext.supportLibVersion
 
     compile 'com.annimon:stream:' + project.ext.streamVersion
