@@ -16,10 +16,6 @@ import hr.com.babic.appexplorer.R;
 
 public final class AppActivitiesAdapter extends RecyclerView.Adapter<AppActivitiesAdapter.ViewHolder> {
 
-    public interface Listener {
-
-    }
-
     private final LayoutInflater inflater;
 
     private final List<AppDetailsContract.AppActivityViewModel> items = new ArrayList<>();
@@ -52,7 +48,10 @@ public final class AppActivitiesAdapter extends RecyclerView.Adapter<AppActiviti
 
     static final class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.adapter_app_details_row_item_app_title)
+        @BindView(R.id.adapter_app_details_row_item_app_package_name)
+        TextView packageName;
+
+        @BindView(R.id.adapter_app_details_row_item_activity_title)
         TextView activityName;
 
         public ViewHolder(final View itemView) {
@@ -65,7 +64,8 @@ public final class AppActivitiesAdapter extends RecyclerView.Adapter<AppActiviti
         }
 
         public void populate(final AppDetailsContract.AppActivityViewModel viewModel) {
-            activityName.setText(viewModel.name);
+            packageName.setText(viewModel.packageName);
+            activityName.setText(viewModel.activityName);
         }
 
         @OnClick(R.id.adapter_app_details_row_item_root_view)

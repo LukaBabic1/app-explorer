@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/adapter_app_details_row_item_root_view"
     android:background="?attr/selectableItemBackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <include layout="@layout/full_divider_layout"/>
+
     <TextView
-        android:id="@+id/adapter_app_details_row_item_app_title"
+        android:id="@+id/adapter_app_details_row_item_app_package_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/adapter_app_details_item_row_package_name_text_layout_margin_start"
+        android:layout_marginTop="@dimen/adapter_app_details_item_row_package_name_text_layout_margin_top"
+        android:layout_marginEnd="@dimen/adapter_app_details_item_row_package_name_text_layout_margin_end"
+        android:layout_marginBottom="@dimen/adapter_app_details_item_row_package_name_text_layout_margin_bottom"
+        android:textSize="@dimen/adapter_app_details_item_row_package_name_text_size"
+        tools:text="Package name"/>
+
+    <TextView
+        android:id="@+id/adapter_app_details_row_item_activity_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/adapter_installed_apps_item_row_layout_margin_start"
         android:layout_marginTop="@dimen/adapter_installed_apps_item_row_layout_margin_top"
         android:layout_marginEnd="@dimen/adapter_installed_apps_item_row_layout_margin_end"
         android:layout_marginBottom="@dimen/adapter_installed_apps_item_row_layout_margin_bottom"
-        android:textSize="@dimen/adapter_installed_apps_item_row_name_text_size"/>
+        android:textSize="@dimen/adapter_installed_apps_item_row_name_text_size"
+        tools:text="Activity name"/>
 
 </LinearLayout>

@@ -7,6 +7,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <include layout="@layout/full_divider_layout"/>
+
     <TextView
         android:id="@+id/adapter_installed_apps_row_item_app_title"
         android:layout_width="match_parent"

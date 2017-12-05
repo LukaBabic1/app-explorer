@@ -34,10 +34,12 @@ public final class AppDetailsContract {
 
     public static final class AppActivityViewModel {
 
-        public final String name;
+        public final String packageName;
+        public final String activityName;
 
-        public AppActivityViewModel(final String name) {
-            this.name = name;
+        public AppActivityViewModel(final String packageName, final String activityName) {
+            this.packageName = packageName;
+            this.activityName = activityName;
         }
     }
 }
