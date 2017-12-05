@@ -11,6 +11,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hr.com.babic.appexplorer.R;
 
 public final class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdapter.ViewHolder> {
@@ -57,6 +58,11 @@ public final class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAp
 
         private void bindViews(final View itemView) {
             ButterKnife.bind(this, itemView);
+        }
+
+        @OnClick(R.id.adapter_installed_apps_row_item_root_view)
+        void onItemClicked() {
+
         }
 
         public void populate(final InstalledAppsOverviewContract.InstalledAppViewModel viewModel) {

@@ -3,7 +3,9 @@ package hr.com.babic.appexplorer.ui.overview;
 import com.annimon.stream.Stream;
 import com.hr.babic.domain.interactor.GetInstalledAppsUseCase;
 import com.hr.babic.domain.model.AppInformation;
+import com.hr.babic.domain.util.ListUtils;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,8 +15,13 @@ import rx.functions.Action1;
 
 public final class InstalledAppsOverviewPresenter extends BasePresenter<InstalledAppsOverviewContract.View> implements InstalledAppsOverviewContract.Presenter {
 
+    private static final Comparator<AppInformation> APP_INFORMATION_COMPARATOR = (o1, o2) -> o1.name.compareToIgnoreCase(o2.name);
+
     @Inject
     GetInstalledAppsUseCase getInstalledAppsUseCase;
+
+    @Inject
+    ListUtils listUtils;
 
     public InstalledAppsOverviewPresenter(final InstalledAppsOverviewContract.View view) {
         super(view);
@@ -28,10 +35,15 @@ public final class InstalledAppsOverviewPresenter extends BasePresenter<Installe
 
     private void getScreenData() {
         viewActionQueue.subscribeTo(getInstalledAppsUseCase.execute()
+                                                           .map(this::sortApplicationInformations)
                                                            .map(this::convertToViewModel)
                                                            .map(this::mapToViewAction)
                                                            .subscribeOn(backgroundScheduler),
                                     this::processGetInstalledAppsError);
+    }
+
+    private List<AppInformation> sortApplicationInformations(final List<AppInformation> appInformations) {
+        return listUtils.sort(appInformations, APP_INFORMATION_COMPARATOR);
     }
 
     private InstalledAppsOverviewContract.ViewModel convertToViewModel(final List<AppInformation> appInformationList) {
