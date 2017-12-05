@@ -12,6 +12,7 @@ import hr.com.babic.appexplorer.injection.activity.DaggerActivity;
 import hr.com.babic.appexplorer.injection.scope.ActivityScope;
 import hr.com.babic.appexplorer.ui.Router;
 import hr.com.babic.appexplorer.ui.RouterImpl;
+import hr.com.babic.appexplorer.ui.appdetails.AppActivitiesAdapter;
 import hr.com.babic.appexplorer.ui.overview.InstalledAppsAdapter;
 import hr.com.babic.appexplorer.util.ActivityUtils;
 import hr.com.babic.appexplorer.util.ActivityUtilsImpl;
@@ -61,6 +62,11 @@ public final class ActivityModule {
     }
 
     @Provides
+    AppActivitiesAdapter provideAppActivitiesAdapter(final LayoutInflater inflater) {
+        return new AppActivitiesAdapter(inflater);
+    }
+
+    @Provides
     NoOpScopedPresenter provideNoOpScopedPresenter() {
         final NoOpScopedPresenter presenter = new NoOpScopedPresenter();
         activity.getActivityComponent().inject(presenter);
@@ -78,5 +84,7 @@ public final class ActivityModule {
         Router router();
 
         InstalledAppsAdapter installedAppsAdapter();
+
+        AppActivitiesAdapter appActivitiesAdapter();
     }
 }

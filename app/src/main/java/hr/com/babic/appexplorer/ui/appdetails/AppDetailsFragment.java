@@ -3,11 +3,17 @@ package hr.com.babic.appexplorer.ui.appdetails;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.annimon.stream.Optional;
 import com.hr.babic.domain.model.AppIdentifier;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import hr.com.babic.appexplorer.R;
 import hr.com.babic.appexplorer.base.BaseFragment;
 import hr.com.babic.appexplorer.base.ScopedPresenter;
@@ -19,8 +25,14 @@ public final class AppDetailsFragment extends BaseFragment implements AppDetails
 
     private static final String KEY_BUNDLE_EXTRA = "key_bundle_extra";
 
+    @BindView(R.id.fragment_app_details_recycler_view)
+    RecyclerView recyclerView;
+
     @Inject
     AppDetailsContract.Presenter presenter;
+
+    @Inject
+    AppActivitiesAdapter adapter;
 
     public static AppDetailsFragment newInstance(final AppIdentifier appIdentifier) {
         final Bundle bundle = new Bundle();
@@ -33,8 +45,20 @@ public final class AppDetailsFragment extends BaseFragment implements AppDetails
     }
 
     @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        extractArguments(getArguments());
+    }
+
+    @Override
     protected void inject(final FragmentComponent component) {
         component.inject(this);
+    }
+
+    private void extractArguments(final Bundle arguments) {
+        Optional.ofNullable(arguments)
+                .map(bundle -> (Request) bundle.getParcelable(KEY_BUNDLE_EXTRA))
+                .ifPresent(request -> presenter.init(request.appIdentifier));
     }
 
     @Override
@@ -43,8 +67,24 @@ public final class AppDetailsFragment extends BaseFragment implements AppDetails
     }
 
     @Override
+    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initAdapter();
+    }
+
+    private void initAdapter() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
     public ScopedPresenter getPresenter() {
         return presenter;
+    }
+
+    @Override
+    public void render(final AppDetailsContract.ViewModel viewModel) {
+        adapter.setData(viewModel.viewModels);
     }
 
     public static final class Request implements Parcelable {

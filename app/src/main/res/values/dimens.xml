@@ -12,4 +12,11 @@
     <dimen name="adapter_installed_apps_item_row_layout_margin_top">@dimen/small_margin</dimen>
     <dimen name="adapter_installed_apps_item_row_layout_margin_bottom">@dimen/small_margin</dimen>
 
+    <!-- App details screen -->
+    <dimen name="adapter_app_details_item_row_name_text_size">@dimen/adapter_installed_apps_item_row_name_text_size</dimen>
+    <dimen name="adapter_app_details_item_row_layout_margin_start">@dimen/adapter_installed_apps_item_row_layout_margin_start</dimen>
+    <dimen name="adapter_app_details_item_row_layout_margin_end">@dimen/adapter_installed_apps_item_row_layout_margin_end</dimen>
+    <dimen name="adapter_app_details_item_row_layout_margin_top">@dimen/adapter_installed_apps_item_row_layout_margin_top</dimen>
+    <dimen name="adapter_app_details_item_row_layout_margin_bottom">@dimen/adapter_installed_apps_item_row_layout_margin_bottom</dimen>
+
 </resources>
