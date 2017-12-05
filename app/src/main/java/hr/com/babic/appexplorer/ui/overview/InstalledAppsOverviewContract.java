@@ -15,6 +15,7 @@ public final class InstalledAppsOverviewContract {
 
     public interface Presenter extends ScopedPresenter {
 
+        void showAppDetails(AppIdentifier appIdentifier);
     }
 
     public interface View extends BaseView {

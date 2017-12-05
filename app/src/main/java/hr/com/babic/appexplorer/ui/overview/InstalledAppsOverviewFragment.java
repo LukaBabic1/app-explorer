@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.hr.babic.domain.model.AppIdentifier;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -14,7 +16,8 @@ import hr.com.babic.appexplorer.base.BaseFragment;
 import hr.com.babic.appexplorer.base.ScopedPresenter;
 import hr.com.babic.appexplorer.injection.fragment.FragmentComponent;
 
-public final class InstalledAppsOverviewFragment extends BaseFragment implements InstalledAppsOverviewContract.View {
+public final class InstalledAppsOverviewFragment extends BaseFragment implements InstalledAppsOverviewContract.View,
+                                                                                 InstalledAppsAdapter.InstalledAppsAdapterListener {
 
     public static final String TAG = "InstalledAppsOverviewFragment";
 
@@ -25,15 +28,10 @@ public final class InstalledAppsOverviewFragment extends BaseFragment implements
     InstalledAppsOverviewContract.Presenter presenter;
 
     @Inject
-    InstalledAppsAdapter adapter;
+    InstalledAppsAdapter installedAppsAdapter;
 
     public static InstalledAppsOverviewFragment newInstance() {
         return new InstalledAppsOverviewFragment();
-    }
-
-    @Override
-    public void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -45,11 +43,12 @@ public final class InstalledAppsOverviewFragment extends BaseFragment implements
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initRecyclerview();
+        installedAppsAdapter.setListener(this);
     }
 
     private void initRecyclerview() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(installedAppsAdapter);
     }
 
     @Override
@@ -64,6 +63,11 @@ public final class InstalledAppsOverviewFragment extends BaseFragment implements
 
     @Override
     public void render(final InstalledAppsOverviewContract.ViewModel viewModel) {
-        adapter.setItems(viewModel.viewModels);
+        installedAppsAdapter.setItems(viewModel.viewModels);
+    }
+
+    @Override
+    public void onItemClicked(final AppIdentifier appIdentifier) {
+        presenter.showAppDetails(appIdentifier);
     }
 }

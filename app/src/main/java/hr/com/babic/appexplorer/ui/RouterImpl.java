@@ -3,7 +3,10 @@ package hr.com.babic.appexplorer.ui;
 import android.app.Activity;
 import android.support.v4.app.FragmentManager;
 
+import com.hr.babic.domain.model.AppIdentifier;
+
 import hr.com.babic.appexplorer.R;
+import hr.com.babic.appexplorer.ui.appdetails.AppDetailsFragment;
 import hr.com.babic.appexplorer.ui.overview.InstalledAppsOverviewFragment;
 
 public final class RouterImpl implements Router {
@@ -22,6 +25,14 @@ public final class RouterImpl implements Router {
     public void showInstalledAppsOverviewScreen() {
         fragmentManager.beginTransaction()
                        .replace(CONTAINER_ID, InstalledAppsOverviewFragment.newInstance(), InstalledAppsOverviewFragment.TAG)
+                       .commit();
+    }
+
+    @Override
+    public void showAppDetails(final AppIdentifier appIdentifier) {
+        fragmentManager.beginTransaction()
+                       .replace(CONTAINER_ID, AppDetailsFragment.newInstance(appIdentifier), AppDetailsFragment.TAG)
+                       .addToBackStack(null)
                        .commit();
     }
 

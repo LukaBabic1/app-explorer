@@ -2,6 +2,7 @@ package hr.com.babic.appexplorer.ui.overview;
 
 import com.annimon.stream.Stream;
 import com.hr.babic.domain.interactor.GetInstalledAppsUseCase;
+import com.hr.babic.domain.model.AppIdentifier;
 import com.hr.babic.domain.model.AppInformation;
 import com.hr.babic.domain.util.ListUtils;
 
@@ -66,5 +67,10 @@ public final class InstalledAppsOverviewPresenter extends BasePresenter<Installe
 
     private void processGetInstalledAppsError(final Throwable throwable) {
         logError(throwable);
+    }
+
+    @Override
+    public void showAppDetails(final AppIdentifier appIdentifier) {
+        router.showAppDetails(appIdentifier);
     }
 }

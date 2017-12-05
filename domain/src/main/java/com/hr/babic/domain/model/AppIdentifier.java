@@ -1,6 +1,10 @@
 package com.hr.babic.domain.model;
 
-public final class AppIdentifier {
+import java.io.Serializable;
+
+public final class AppIdentifier implements Serializable {
+
+    public static final AppIdentifier EMPTY = new AppIdentifier("");
 
     public final String appId;
 

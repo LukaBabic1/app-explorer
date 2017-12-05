@@ -4,6 +4,8 @@ import dagger.Module;
 import dagger.Provides;
 import hr.com.babic.appexplorer.injection.fragment.DaggerFragment;
 import hr.com.babic.appexplorer.injection.scope.FragmentScope;
+import hr.com.babic.appexplorer.ui.appdetails.AppDetailsContract;
+import hr.com.babic.appexplorer.ui.appdetails.AppDetailsPresenter;
 import hr.com.babic.appexplorer.ui.overview.InstalledAppsOverviewContract;
 import hr.com.babic.appexplorer.ui.overview.InstalledAppsOverviewPresenter;
 
@@ -25,8 +27,19 @@ public final class FragmentPresenterModule {
         return presenter;
     }
 
+    @Provides
+    @FragmentScope
+    AppDetailsContract.Presenter provideAppDetailsPresenter() {
+        final AppDetailsPresenter presenter = new AppDetailsPresenter((AppDetailsContract.View) fragment);
+        fragment.getFragmentComponent().inject(presenter);
+
+        return presenter;
+    }
+
     public interface Exposes {
 
-        InstalledAppsOverviewContract.Presenter presenter();
+        InstalledAppsOverviewContract.Presenter installedAppsOverviewPresenter();
+
+        AppDetailsContract.Presenter appDetailsPresenter();
     }
 }
