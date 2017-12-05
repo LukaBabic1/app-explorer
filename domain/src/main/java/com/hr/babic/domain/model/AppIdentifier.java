@@ -1,10 +1,10 @@
 package com.hr.babic.domain.model;
 
-public final class ApplicationIdenfitier {
+public final class AppIdentifier {
 
     public final String appId;
 
-    public ApplicationIdenfitier(final String appId) {
+    public AppIdentifier(final String appId) {
         this.appId = appId;
     }
 
@@ -17,7 +17,7 @@ public final class ApplicationIdenfitier {
             return false;
         }
 
-        ApplicationIdenfitier that = (ApplicationIdenfitier) o;
+        AppIdentifier that = (AppIdentifier) o;
 
         return appId != null ? appId.equals(that.appId) : that.appId == null;
 
