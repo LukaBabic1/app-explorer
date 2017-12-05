@@ -1,13 +1,13 @@
-package hr.com.babic.device.model;
+package hr.com.babic.device.information;
 
-public final class PackageInformation {
+final class PackageData {
 
     public final String packageId;
     public final String appName;
     public final int versionCode;
     public final String versionName;
 
-    public PackageInformation(final String packageId, final String appName, final int versionCode, final String versionName) {
+    public PackageData(final String packageId, final String appName, final int versionCode, final String versionName) {
         this.packageId = packageId;
         this.appName = appName;
         this.versionCode = versionCode;
@@ -23,7 +23,7 @@ public final class PackageInformation {
             return false;
         }
 
-        PackageInformation that = (PackageInformation) o;
+        PackageData that = (PackageData) o;
 
         if (versionCode != that.versionCode) {
             return false;
