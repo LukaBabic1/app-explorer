@@ -1,6 +1,6 @@
 package com.hr.babic.domain.interactor;
 
-import com.hr.babic.domain.model.AppInformation;
+import com.hr.babic.domain.model.ApplicationInformation;
 import com.hr.babic.domain.repository.ApplicationRepository;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public final class GetInstalledAppsUseCaseImpl implements GetInstalledAppsUseCas
     }
 
     @Override
-    public Single<List<AppInformation>> execute() {
+    public Single<List<ApplicationInformation>> execute() {
         return applicationRepository.getInstalledApps();
     }
 }

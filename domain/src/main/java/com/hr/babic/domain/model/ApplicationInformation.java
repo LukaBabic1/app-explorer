@@ -1,13 +1,13 @@
 package com.hr.babic.domain.model;
 
-public final class AppInformation {
+public final class ApplicationInformation {
 
     public final AppIdentifier appIdentifier;
     public final String name;
     public final int versionCode;
     public final String versionName;
 
-    public AppInformation(final AppIdentifier appIdentifier, final String name, final int versionCode, final String versionName) {
+    public ApplicationInformation(final AppIdentifier appIdentifier, final String name, final int versionCode, final String versionName) {
         this.appIdentifier = appIdentifier;
         this.name = name;
         this.versionCode = versionCode;
@@ -23,7 +23,7 @@ public final class AppInformation {
             return false;
         }
 
-        AppInformation that = (AppInformation) o;
+        ApplicationInformation that = (ApplicationInformation) o;
 
         if (versionCode != that.versionCode) {
             return false;

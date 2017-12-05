@@ -3,7 +3,7 @@ package hr.com.babic.appexplorer.ui.overview;
 import com.annimon.stream.Stream;
 import com.hr.babic.domain.interactor.GetInstalledAppsUseCase;
 import com.hr.babic.domain.model.AppIdentifier;
-import com.hr.babic.domain.model.AppInformation;
+import com.hr.babic.domain.model.ApplicationInformation;
 import com.hr.babic.domain.util.ListUtils;
 
 import java.util.Comparator;
@@ -16,7 +16,7 @@ import rx.functions.Action1;
 
 public final class InstalledAppsOverviewPresenter extends BasePresenter<InstalledAppsOverviewContract.View> implements InstalledAppsOverviewContract.Presenter {
 
-    private static final Comparator<AppInformation> APP_INFORMATION_COMPARATOR = (o1, o2) -> o1.name.compareToIgnoreCase(o2.name);
+    private static final Comparator<ApplicationInformation> APP_INFORMATION_COMPARATOR = (o1, o2) -> o1.name.compareToIgnoreCase(o2.name);
 
     @Inject
     GetInstalledAppsUseCase getInstalledAppsUseCase;
@@ -43,22 +43,22 @@ public final class InstalledAppsOverviewPresenter extends BasePresenter<Installe
                                     this::processGetInstalledAppsError);
     }
 
-    private List<AppInformation> sortApplicationInformations(final List<AppInformation> appInformations) {
-        return listUtils.sort(appInformations, APP_INFORMATION_COMPARATOR);
+    private List<ApplicationInformation> sortApplicationInformations(final List<ApplicationInformation> applicationInformations) {
+        return listUtils.sort(applicationInformations, APP_INFORMATION_COMPARATOR);
     }
 
-    private InstalledAppsOverviewContract.ViewModel convertToViewModel(final List<AppInformation> appInformationList) {
-        return new InstalledAppsOverviewContract.ViewModel(convertToInstalledAppsViewModels(appInformationList));
+    private InstalledAppsOverviewContract.ViewModel convertToViewModel(final List<ApplicationInformation> applicationInformationList) {
+        return new InstalledAppsOverviewContract.ViewModel(convertToInstalledAppsViewModels(applicationInformationList));
     }
 
-    private List<InstalledAppsOverviewContract.InstalledAppViewModel> convertToInstalledAppsViewModels(final List<AppInformation> appInformationList) {
-        return Stream.of(appInformationList)
+    private List<InstalledAppsOverviewContract.InstalledAppViewModel> convertToInstalledAppsViewModels(final List<ApplicationInformation> applicationInformationList) {
+        return Stream.of(applicationInformationList)
                      .map(this::convertToInstalledAppViewModel)
                      .toList();
     }
 
-    private InstalledAppsOverviewContract.InstalledAppViewModel convertToInstalledAppViewModel(final AppInformation appInformation) {
-        return new InstalledAppsOverviewContract.InstalledAppViewModel(appInformation.appIdentifier, appInformation.name);
+    private InstalledAppsOverviewContract.InstalledAppViewModel convertToInstalledAppViewModel(final ApplicationInformation applicationInformation) {
+        return new InstalledAppsOverviewContract.InstalledAppViewModel(applicationInformation.appIdentifier, applicationInformation.name);
     }
 
     private Action1<InstalledAppsOverviewContract.View> mapToViewAction(final InstalledAppsOverviewContract.ViewModel viewModel) {

@@ -18,19 +18,19 @@ public final class ApplicationRepositoryImpl implements ApplicationRepository {
     }
 
     @Override
-    public Single<List<AppInformation>> getInstalledApps() {
+    public Single<List<ApplicationInformation>> getInstalledApps() {
         return Single.fromCallable(packageInformationProvider::getInstalledPackages)
                      .map(this::toAppInformationList);
     }
 
-    private List<AppInformation> toAppInformationList(final List<PackageData> packageDataList) {
+    private List<ApplicationInformation> toAppInformationList(final List<PackageData> packageDataList) {
         return Stream.of(packageDataList)
                      .map(this::toAppInformation)
                      .toList();
     }
 
-    private AppInformation toAppInformation(final PackageData information) {
-        return new AppInformation(new AppIdentifier(information.packageId), information.appName, information.versionCode, information.versionName);
+    private ApplicationInformation toAppInformation(final PackageData information) {
+        return new ApplicationInformation(new AppIdentifier(information.packageId), information.appName, information.versionCode, information.versionName);
     }
 
     @Override
